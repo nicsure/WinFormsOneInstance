@@ -1,4 +1,7 @@
-﻿Example solution containing my OneInstance static class.
+﻿# WinFormsOneInstance
+Single Instance WinForms application example.
+
+Example solution containing my OneInstance static class.
 
 This is a way to handle WinForms applications that you only want to run one instance at a time.
 It uses a Notification Icon and a non persistent main Form (default solutions have persistent main Forms)
