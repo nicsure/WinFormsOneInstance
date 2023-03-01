@@ -6,6 +6,7 @@ namespace WinFormsOneInstance
     public partial class Form1 : Form, IMainForm // Form must implement IMainForm
     {
         static decimal myValue = 50; // static value used with the example NumericUpDown Control on the form
+        private FormWindowState lastWindowState = FormWindowState.Normal;
 
         static Form1()
         {
@@ -38,7 +39,8 @@ namespace WinFormsOneInstance
         {
             if (!IsDead) // check the Form is not disposed
             {
-                WindowState = FormWindowState.Normal; // unminimize Form
+                if (WindowState == FormWindowState.Minimized)
+                    WindowState = lastWindowState; // unminimize Form
                 BringToFront(); // Bring Form to front.
             }
         }
@@ -46,6 +48,12 @@ namespace WinFormsOneInstance
         private void NumericUpDown1_ValueChanged(object sender, EventArgs e) // fires when the example control's value is changed
         {
             myValue = numericUpDown1.Value; // update our static value to the new value of the example control.
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            if (WindowState != FormWindowState.Minimized)
+                lastWindowState = WindowState;
         }
     }
 }
